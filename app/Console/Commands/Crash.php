@@ -27,7 +27,12 @@ class Crash extends Command
     public function handle(): void
     {
         logger()->info('Executing Crash command to throw an exception.');
-
-        throw new RuntimeException('This is a test exception from the Crash command.');
+        $spanContext = \Sentry\Tracing\SpanContext::make();
+        $spanContext = \Sentry\Tracing\SpanContext::make()
+            ->setOp('debug-exception')
+            ->setDescription('Throws runtime exception.');
+        \Sentry\trace(function () {
+            throw new RuntimeException('This is a test exception from the Crash command.');
+        }, $spanContext);
     }
 }

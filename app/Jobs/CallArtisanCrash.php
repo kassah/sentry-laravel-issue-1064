@@ -25,7 +25,11 @@ class CallArtisanCrash implements ShouldQueue
     public function handle(): void
     {
         logger()->info('Calling Artisan command Crash from Job.');
-
-        Artisan::call(Crash::class);
+        $spanContext = \Sentry\Tracing\SpanContext::make()
+            ->setOp('debug-artisan-call')
+            ->setDescription('Call Artisan Crash');
+        \Sentry\trace(function () {
+            Artisan::call(Crash::class);
+        }, $spanContext);
     }
 }
