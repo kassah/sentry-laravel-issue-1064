@@ -10,7 +10,8 @@
         "laravel/framework": "^12.0",
         "laravel/sail": "^1.48",
         "laravel/tinker": "^2.10.1",
-        "sentry/sentry-laravel": "^4.19"
+        "sentry/sentry-laravel": "^4.19",
+        "spatie/laravel-multitenancy": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
