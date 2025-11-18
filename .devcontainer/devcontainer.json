@@ -1,11 +1,7 @@
 // https://aka.ms/devcontainer.json
 {
-	"name": "Existing Docker Compose (Extend)",
-	"dockerComposeFile": [
-		"../compose.yaml"
-	],
-	"service": "laravel.test",
-	"workspaceFolder": "/var/www/html",
+    "name": "laravel-12-container",
+    "image": "mcr.microsoft.com/devcontainers/php:8.4-bookworm",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -19,9 +15,16 @@
 			"settings": {}
 		}
 	},
-	"remoteUser": "sail",
-	"postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true"
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest"
+        }
+    },
+//	"remoteUser": "sail",
+//	"postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true"
 	// "forwardPorts": [],
 	// "runServices": [],
 	// "shutdownAction": "none",
+    "postCreateCommand": "bash ./.devcontainer/setup.sh",
+    "postStartCommand": "echo alias sail=\\'vendor/bin/sail\\' >> ~/.bashrc && . ~/.bashrc"
 }
