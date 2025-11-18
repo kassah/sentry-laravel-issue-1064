@@ -50,7 +50,11 @@ laravel_log_pid=$!
   openurl() {
       url=$1
       echo " === Open URL: $url === "
-      (start "$1" || xdg-open "$1" || open "$1") 2> /dev/null
+      if [ -n "$BROWSER" ] && command -v "$BROWSER" >/dev/null 2>&1; then
+        "$BROWSER" "$1" >/dev/null 2>&1 &
+      else
+        (start "$1" || xdg-open "$1" || open "$1" || gnome-open "$1" || true) 2> /dev/null
+      fi
   }
   until (grep -m 1 "was started and sampled, decided by config:traces_sample_rate." storage/logs/sentry.log 2> /dev/null)
   do

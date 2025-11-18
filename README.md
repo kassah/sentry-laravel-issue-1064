@@ -4,6 +4,8 @@ This github repo is an attempt to recreate the issue in [Sentry Laravel Integrat
 
 ## Requirements
 - Docker Desktop (tested on MacOS)
+OR
+- GitHub Codespaces
 
 ## Instructions
 First, copy the .env.example to .env

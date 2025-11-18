@@ -1,7 +1,8 @@
 #!/bin/bash
-
-echo --- Copy the environment file ...
-cp .env.example .env
+if [ ! -f .env ]; then
+    echo --- Copy the environment file ...
+    cp .env.example .env
+fi
 
 echo "--- Install dependencies (first sail install will take a while) ..."
 composer install
