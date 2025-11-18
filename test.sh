@@ -33,6 +33,8 @@ source .env
 touch storage/logs/sentry.log
 # Touch laravel.log
 touch storage/logs/laravel.log
+# Touch swoole_http.log
+touch storage/logs/swoole_http.log
 # Bring up sail
 ./vendor/bin/sail up -d
 # Wait for database port to be open.
