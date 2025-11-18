@@ -33,3 +33,6 @@ Then, in terminal, execute the test.sh script.
 ```shell
 ./test.sh
 ```
+(This can be run in VSCode via the ["Run Task: Run test.sh"](command:workbench.action.tasks.runTask?%5B%22Run%20test.sh%22%5D).)
+
+After a bit, this should pop a browser to the sentry trace waterfall generated for the [Sentry Laravel Integration Issue #1064](https://github.com/getsentry/sentry-laravel/issues/1064), if it hasn't processed fully yet, you may have to refresh the page after a few more seconds.
