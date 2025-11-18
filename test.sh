@@ -13,9 +13,14 @@ if [ ! -d vendor ]; then
         -v "$(pwd)":/opt \
         -w /opt \
         laravelsail/php84-composer:latest \
-        bash -c "composer install --no-interaction"
+        bash -c "composer install --no-interaction; php artisan key:generate"
     chmod u+x vendor/bin/sail
     chmod u+x vendor/laravel/sail/bin/sail
+fi
+
+if [ ! -f .env ]; then
+    echo "You must configure the .env file before starting."
+    exit 1
 fi
 
 # Load Laravel Environment
