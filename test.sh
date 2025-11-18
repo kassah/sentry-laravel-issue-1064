@@ -28,7 +28,11 @@ source .env
 # Teardown sail (ignore error)
 (./vendor/bin/sail down -v || true)
 # Remove logs (ignore error)
-(rm storage/logs/*.log || true)
+(rm -f storage/logs/*.log || true)
+# Touch sentry.log
+touch storage/logs/sentry.log
+# Touch laravel.log
+touch storage/logs/laravel.log
 # Bring up sail
 ./vendor/bin/sail up -d
 # Wait for database port to be open.
