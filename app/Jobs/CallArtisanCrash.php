@@ -6,6 +6,7 @@ use App\Console\Commands\Crash;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Multitenancy\Models\Tenant;
 
 class CallArtisanCrash implements ShouldQueue
 {
@@ -26,10 +27,12 @@ class CallArtisanCrash implements ShouldQueue
     {
         logger()->info('Calling Artisan command Crash from Job.');
         $spanContext = \Sentry\Tracing\SpanContext::make()
-            ->setOp('debug-artisan-call')
-            ->setDescription('Call Artisan Crash');
+            ->setOp('debug-tenants-call')
+            ->setDescription('Call Artisan Crash through tenants:artisan command.');
         \Sentry\trace(function () {
-            Artisan::call(Crash::class);
+            $tenant = Tenant::firstOrFail()->id;
+            Artisan::call("tenants:artisan --tenant={$tenant} \"crash\"");
+            //Artisan::call(Crash::class);
         }, $spanContext);
     }
 }
