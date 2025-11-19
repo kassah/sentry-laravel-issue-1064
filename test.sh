@@ -5,6 +5,10 @@ set -e
 # Ensure docker is running.
 (docker info > /dev/null 2>&1) || (echo "Docker is not running."; exit 1)
 
+echo "Cleaning local .env file to be from .env.example except for SENTRY_LARAVEL_DSN and SENTRY_DOMAIN."
+# Reset the local .env file, keeping only the SENTRY_LARAVEL_DSN and SENTRY_DOMAIN values.
+./init-env.sh
+
 # We need composer dependencies before we can proceed.
 if [ ! -d vendor ]; then
     echo "Installing composer dependencies."
@@ -29,6 +33,8 @@ source .env
 (./vendor/bin/sail down -v || true)
 # Remove logs (ignore error)
 (rm -f storage/logs/*.log || true)
+# Remove json (ignore error)
+(rm -f storage/logs/*.json || true)
 # Touch sentry.log
 touch storage/logs/sentry.log
 # Touch laravel.log
